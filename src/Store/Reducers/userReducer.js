@@ -2,7 +2,7 @@ import { ADD_USER, DELETE_USER, EDIT_USER } from '../types/user'
 
 const DEFAULT_STATE = {
     userList: [],
-    seletedUser: null,
+    selectedUser: null,
 }
 
 export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
@@ -31,7 +31,7 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
         }
 
         case EDIT_USER: {
-            state.seletedUser = payload
+            state.selectedUser = payload
             return { ...state }
         }
         default:
