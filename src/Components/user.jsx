@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteUserAction, editUserAction } from '../Store/actions/user'
 
@@ -6,8 +6,31 @@ export default function User() {
     const userState = useSelector((state) => state.userReducer)
     const dispatch = useDispatch()
 
+    const [search, setSearch] = useState({
+        keyword: '',
+        type: 'All',
+    })
+
+    const handleChange = (event) => {
+        const { value, name } = event.target
+
+        setSearch({ ...search, [name]: value })
+    }
+
     const renderUserList = () => {
-        return userState.userList.map((user, index) => {
+        let dataFilter = userState.userList.filter(
+            (ele) =>
+                ele.fullname
+                    .toLowerCase()
+                    .trim()
+                    .indexOf(search.keyword.toLocaleLowerCase().trim()) !== -1
+        )
+
+        if (search.type !== 'All') {
+            dataFilter = dataFilter.filter((ele) => ele.type === search.type)
+        }
+
+        return dataFilter.map((user, index) => {
             const { id, username, fullname, email, phonenumber, type } = user
 
             return (
@@ -44,6 +67,8 @@ export default function User() {
                 <div className="col-4">
                     <div className="form-group mb-0">
                         <input
+                            name="keyword"
+                            onChange={handleChange}
                             type="text"
                             placeholder="Search by full name..."
                             className="form-control"
@@ -52,7 +77,7 @@ export default function User() {
                 </div>
                 <div className="col-3 ml-auto">
                     <div className="form-group mb-0">
-                        <select className="form-control">
+                        <select name="type" onChange={handleChange} className="form-control">
                             <option>All</option>
                             <option>Client</option>
                             <option>Admin</option>

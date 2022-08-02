@@ -1,4 +1,4 @@
-import { ADD_USER, DELETE_USER, EDIT_USER } from '../types/user'
+import { ADD_USER, DELETE_USER, EDIT_USER, UPDATE_USER } from '../types/user'
 
 const DEFAULT_STATE = {
     userList: [],
@@ -32,6 +32,20 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
 
         case EDIT_USER: {
             state.selectedUser = payload
+            return { ...state }
+        }
+
+        case UPDATE_USER: {
+            const data = [...state.userList]
+
+            const index = data.findIndex((ele) => payload.username === ele.username)
+
+            if (index !== -1) {
+                data[index] = payload
+            }
+
+            state.userList = data
+
             return { ...state }
         }
         default:

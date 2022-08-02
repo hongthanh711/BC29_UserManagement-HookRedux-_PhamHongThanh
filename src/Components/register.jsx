@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createRef } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { addUserAction } from '../Store/actions/user'
+import { addUserAction, updateUserAction } from '../Store/actions/user'
 
 const DEFAULT_VALUE = {
     id: '',
@@ -68,7 +68,13 @@ export default function Register() {
             return
         }
 
-        dispatch(addUserAction(values))
+        const index = userState.userList.findIndex((ele) => ele.username === values.username)
+
+        if (index !== -1) {
+            dispatch(updateUserAction(values))
+        } else {
+            dispatch(addUserAction(values))
+        }
 
         setValues(DEFAULT_VALUE)
     }
@@ -108,7 +114,7 @@ export default function Register() {
                                     title="Full Name"
                                     onBlur={handleBlur}
                                     required
-                                    minLength={6}
+                                    minLength={5}
                                     maxLength={20}
                                     value={fullname}
                                     name="fullname"
@@ -194,7 +200,7 @@ export default function Register() {
                         </div>
                     </div>
                     <button
-                        disabled={!formRef.current?.checkValidity()}
+                        // disabled={!formRef.current?.checkValidity()}
                         type="submit"
                         className="btn btn-warning mr-2"
                     >
