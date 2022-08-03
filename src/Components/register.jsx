@@ -53,7 +53,7 @@ export default function Register() {
         }
 
         if (patternMismatch) {
-            message = 'Vui lòng nhập đúng định dạng email'
+            message = `Vui lòng nhập đúng định dạng ${title}`
         }
 
         setErrors({ ...errors, [name]: message })

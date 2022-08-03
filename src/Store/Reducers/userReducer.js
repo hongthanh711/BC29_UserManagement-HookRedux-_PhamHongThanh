@@ -1,7 +1,13 @@
 import { ADD_USER, DELETE_USER, EDIT_USER, UPDATE_USER } from '../types/user'
 
+let userLocalStorage = JSON.parse(localStorage.getItem('USER'))
+
+if (!userLocalStorage) {
+    userLocalStorage = []
+}
+
 const DEFAULT_STATE = {
-    userList: [],
+    userList: userLocalStorage,
     selectedUser: null,
 }
 
@@ -10,13 +16,9 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
         case ADD_USER: {
             const data = [...state.userList]
 
-            const user = { ...payload, id: Date.now() }
+            data.push({ ...payload, id: Date.now() })
 
-            console.log(user)
-
-            data.push(user)
-
-            // localStorage.setItem('USER', JSON.stringify(user))
+            localStorage.setItem('USER', JSON.stringify(data))
 
             state.userList = data
 
@@ -31,6 +33,10 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
             if (index !== -1) {
                 data.splice(index, 1)
             }
+
+            console.log(data)
+
+            localStorage.setItem('USER', JSON.stringify(data))
 
             state.userList = data
 
