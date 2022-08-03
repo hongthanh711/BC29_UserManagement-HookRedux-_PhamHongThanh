@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { addUserAction, updateUserAction } from '../Store/actions/user'
@@ -20,7 +20,7 @@ export default function Register() {
     const [values, setValues] = useState(DEFAULT_VALUE)
     const [errors, setErrors] = useState(DEFAULT_VALUE)
 
-    const formRef = createRef(null)
+    const formRef = useRef(null)
 
     useEffect(() => {
         if (userState.selectedUser) {
@@ -200,7 +200,7 @@ export default function Register() {
                         </div>
                     </div>
                     <button
-                        // disabled={!formRef.current?.checkValidity()}
+                        disabled={!formRef.current?.checkValidity()}
                         type="submit"
                         className="btn btn-warning mr-2"
                     >

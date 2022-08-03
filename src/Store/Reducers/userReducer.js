@@ -9,7 +9,14 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload }) => {
     switch (type) {
         case ADD_USER: {
             const data = [...state.userList]
-            data.push({ ...payload, id: Date.now() })
+
+            const user = { ...payload, id: Date.now() }
+
+            console.log(user)
+
+            data.push(user)
+
+            // localStorage.setItem('USER', JSON.stringify(user))
 
             state.userList = data
 
