@@ -53,7 +53,7 @@ export default function Register() {
         }
 
         if (patternMismatch) {
-            message = `Vui lòng nhập đúng định dạng ${title}`
+            message = `Vui lòng nhập ${title} đúng định dạng`
         }
 
         setErrors({ ...errors, [name]: message })
@@ -111,6 +111,7 @@ export default function Register() {
                             <div className="form-group">
                                 <label>Full Name</label>
                                 <input
+                                    pattern="^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$"
                                     title="Full Name"
                                     onBlur={handleBlur}
                                     required
@@ -151,6 +152,7 @@ export default function Register() {
                             <div className="form-group">
                                 <label>Phone Number</label>
                                 <input
+                                    pattern="^\d+$"
                                     title="Phone Number"
                                     onBlur={handleBlur}
                                     required
